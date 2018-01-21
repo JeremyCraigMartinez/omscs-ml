@@ -1,0 +1,7 @@
+# devDependencies
+pylint
+
+# ML dependencies
+numpy
+scipy
+scikit-learn
