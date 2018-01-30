@@ -1,3 +1,29 @@
-from sklearn.ensemble import GradientBoostingClassifier
+from nl_preprocessing import get_train_test_set
 
-print('GradientBoostingClassifier')
+import numpy as np
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import cross_val_score
+
+def boosting(X_train, X_test, y_train, y_test):
+    # Fitting XGBoost to the Training set
+    classifier = AdaBoostClassifier()
+    classifier.fit(X_train, y_train)
+
+    # Predicting the Test set results
+    y_pred = classifier.predict(X_test)
+
+    # Making the Confusion Matrix
+    cm = confusion_matrix(y_test, y_pred)
+
+    # Applying k-Fold Cross Validation
+    accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
+    accuracies.mean()
+    accuracies.std()
+
+    return cm
+
+if __name__ == '__main__':
+    split_data_set = get_train_test_set()
+    cm = boosting(*split_data_set)
+    print(cm)

@@ -1,12 +1,3 @@
 [MESSAGES CONTROL]
 
-# Enable the message, report, category or checker with the given id(s). You can
-# either give multiple identifier separated by comma (,) or put this option
-# multiple time.
-#enable=
-
-# Disable the message, report, category or checker with the given id(s). You
-# can either give multiple identifier separated by comma (,) or put this option
-# multiple time (only on the command line, not in the configuration file where
-# it should appear only once).
-disable=missing-docstring
+disable=missing-docstring,no-name-in-module,invalid-name,wrong-import-position,line-too-long,locally-disabled,import-error,relative-import,duplicate-code,bare-except,global-statement,no-self-use,bare-except,too-many-locals,len-as-condition,too-many-arguments,pointless-string-statement

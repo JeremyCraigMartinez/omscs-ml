@@ -5,3 +5,12 @@ pylint
 numpy
 scipy
 scikit-learn
+matplotlib
+keras
+tensorflow
+
+# nlp dependencies
+nltk
+
+# preprocessing data
+pandas
