@@ -1,4 +1,4 @@
-from nl_preprocessing import get_train_test_set
+from reviews_preprocessing import get_train_test_set
 
 from boosting import boosting
 from k_nearest_neighbor import knn

@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.metrics import confusion_matrix
 
-from nl_preprocessing import get_train_test_set
+from reviews_preprocessing import get_train_test_set
 
 def ann(X_train, X_test, y_train, y_test):
     # Initialising the ANN

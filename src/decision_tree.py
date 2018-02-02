@@ -2,7 +2,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix
 
-from nl_preprocessing import get_train_test_set
+from reviews_preprocessing import get_train_test_set
 
 def decision_tree(X_train, X_test, y_train, y_test):
     # Feature Scaling

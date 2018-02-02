@@ -2,7 +2,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 
-from nl_preprocessing import get_train_test_set
+from reviews_preprocessing import get_train_test_set
 
 def svm(X_train, X_test, y_train, y_test):
     # Feature Scaling
