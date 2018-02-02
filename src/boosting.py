@@ -2,7 +2,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
 
-from nl_preprocessing import get_train_test_set
+from reviews_preprocessing import get_train_test_set
 
 def boosting(X_train, X_test, y_train, y_test):
     # Fitting XGBoost to the Training set
