@@ -28,6 +28,7 @@ def get_X_Y(corpus, dataset):
     cv = CountVectorizer(max_features=1500)
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, 1].values
+
     return X, y
 
 # Splitting the dataset into the Training set and Test set
@@ -41,3 +42,6 @@ def get_train_test_set():
 
     # X_train, X_test, y_train, y_test
     return train_test_split(X, y, test_size=0.20, random_state=0)
+
+if __name__ == '__main__':
+    X_train, X_test, y_train, y_test = get_train_test_set()
