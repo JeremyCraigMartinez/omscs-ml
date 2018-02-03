@@ -18,7 +18,8 @@ rp_alg_arguments = {
         'random_state': 100,
     },
     'neural_network': {
-        'input_dim': 1500
+        'input_dim': 1500,
+        'units': 400,
     },
 }
 
@@ -29,7 +30,8 @@ hp_alg_arguments = {
         'random_state': 100,
     },
     'neural_network': {
-        'input_dim': 46
+        'input_dim': 46,
+        'units': 600,
     },
 }
 def run_all(data, **kargs):
@@ -39,7 +41,7 @@ def run_all(data, **kargs):
     results.append(('boosting', boosting(*split_data_set)))
     results.append(('k_nearest_neighbor', knn(*split_data_set)))
     results.append(('decision_tree', decision_tree(*split_data_set, **kargs['decision_tree'])))
-    results.append(('neural_network', ann(*split_data_set, input_dim=kargs['input_dim'])))
+    results.append(('neural_network', ann(*split_data_set, **kargs['neural_network'])))
     results.append(('support_vector_machine', svm(*split_data_set)))
 
     for result in results:
@@ -52,3 +54,6 @@ if __name__ == '__main__':
     # setting max depth for this dataset does not improve predicition accuracy
     run_all(rp, **rp_alg_arguments)
     run_all(hp, **hp_alg_arguments)
+
+# for rp, we want even split
+# for hp, we want minimal bottom left

@@ -1,14 +1,24 @@
+# Input dimension needs to match data, necessary to pass as an argument per basis
+# a unique dimensionality of output space seems to make a significant impact for
+#   input later, however, for hidden layer, it is a little more touchy and seems
+#   to negatively impact each dataset
+
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
 
 from sklearn.metrics import confusion_matrix
 
-def ann(X_train, X_test, y_train, y_test, input_dim=1500):
+def ann(X_train,
+        X_test,
+        y_train,
+        y_test,
+        input_dim=None,
+        units=500):
     model = Sequential()
 
     #Input layer
-    model.add(Dense(units=500,
+    model.add(Dense(units=units,
                     input_dim=input_dim,
                     kernel_initializer='uniform',
                     activation='relu'))
