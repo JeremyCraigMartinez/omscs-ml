@@ -10,7 +10,8 @@
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import confusion_matrix
+
+from helpers.scoring import accuracy
 
 def decision_tree(X_train,
                   X_test,
@@ -35,5 +36,4 @@ def decision_tree(X_train,
     # Predicting the Test set results
     y_pred = classifier.predict(X_test)
 
-    # Making the Confusion Matrix
-    return confusion_matrix(y_test, y_pred)
+    accuracy(X_train, y_train, y_test, y_pred, classifier)

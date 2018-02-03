@@ -108,7 +108,7 @@ def get_X_Y(dataset):
 
 from sklearn.cross_validation import train_test_split
 def get_train_test_set():
-    dataset = pd.read_csv(dir_path + '/../data/kag_risk_factors_cervical_cancer.csv')
+    dataset = pd.read_csv(dir_path + '/../../data/kag_risk_factors_cervical_cancer.csv')
     cleaned_data = clean(dataset)
 
     return get_X_Y(cleaned_data)

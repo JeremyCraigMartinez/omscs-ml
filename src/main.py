@@ -2,8 +2,8 @@
 
 import warnings
 
-from reviews_preprocessing import get_train_test_set as rp
-from health_data_preprocessing import get_train_test_set as hp
+from helpers.reviews_preprocessing import get_train_test_set as rp
+from helpers.health_data_preprocessing import get_train_test_set as hp
 
 from boosting import boosting
 from k_nearest_neighbor import knn
@@ -43,16 +43,12 @@ def run_all(data, **kargs):
 
     print('Confusion matrix for boosting')
     boosting(*split_data_set)
-
     print('Confusion matrix for k_nearest_neighbor')
     knn(*split_data_set)
-
     print('Confusion matrix for decision_tree')
     decision_tree(*split_data_set, **kargs['decision_tree'])
-
     print('Confusion matrix for neural_network')
     ann(*split_data_set, **kargs['neural_network'])
-
     print('Confusion matrix for support_vector_machine')
     svm(*split_data_set, **kargs['support_vector_machine'])
 

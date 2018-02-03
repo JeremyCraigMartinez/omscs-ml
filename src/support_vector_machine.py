@@ -1,6 +1,7 @@
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from sklearn.metrics import confusion_matrix
+
+from helpers.scoring import accuracy
 
 def get_classifier(X_train, X_test, y_train, y_test, kernel, **kargs):
     # Fitting SVM to the Training set
@@ -11,7 +12,8 @@ def get_classifier(X_train, X_test, y_train, y_test, kernel, **kargs):
     y_pred = classifier.predict(X_test)
 
     # Making the Confusion Matrix
-    print('svm with {} kernel\n'.format(kernel), confusion_matrix(y_test, y_pred))
+    print('svm with {} kernel'.format(kernel))
+    accuracy(X_train, y_train, y_test, y_pred, classifier)
 
 def svm(X_train, X_test, y_train, y_test, **kargs):
     # Feature Scaling
