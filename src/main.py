@@ -2,6 +2,7 @@
 
 import warnings
 import numpy as np
+from sklearn.model_selection import StratifiedKFold
 
 from helpers.reviews_preprocessing import get_train_test_set as rp
 from helpers.health_data_preprocessing import get_train_test_set as hp
@@ -24,6 +25,9 @@ rp_alg_arguments = {
     },
     'support_vector_machine': {},
     'boosting': {},
+    'knn': {
+        'n_neighbors': 3
+    },
 }
 
 hp_alg_arguments = {
@@ -40,34 +44,50 @@ hp_alg_arguments = {
         'coef0': 1.25
     },
     'boosting': {},
+    'knn': {
+        'n_neighbors': 3,
+    },
 }
 
 def run_each(X, y, algorithm, alg_name, **kargs):
     print('Confusion matrix for {}'.format(alg_name))
 
     kfold = StratifiedKFold(n_splits=7, shuffle=True)
-    scores = []
+    accuracy = []
+    precision = []
+    recall = []
     cms = []
 
     for train, test in kfold.split(X, y):
-        cm, mean = algorithm(X[train],
-                             X[test],
-                             y[train],
-                             y[test],
-                             **kargs)
-        scores.append(mean)
+        cm, acc, prec, rec = algorithm(X[train],
+                                       X[test],
+                                       y[train],
+                                       y[test],
+                                       **kargs)
+        accuracy.append(acc)
+        precision.append(prec)
+        recall.append(rec)
         cms.append(cm)
 
     print("{}".format(np.array(cms).sum(axis=0) / 10))
-    print("%.2f%% (+/- %.2f%%)" % (np.mean(scores), np.std(scores)))
+    print("accuracy: %.2f%% (+/- %.2f%%)" % (np.mean(accuracy), np.std(accuracy)))
+    print("precision: %.2f%% (+/- %.2f%%)" % (np.mean(precision), np.std(precision)))
+    print("recall: %.2f%% (+/- %.2f%%)" % (np.mean(recall), np.std(recall)))
 
-from sklearn.model_selection import StratifiedKFold
 def run_all(data, **kargs):
-    X, y = split_data_set = data()
-    #run_each(X, y, knn, 'knn', **kargs['knn'])
+    X, y = data()
     run_each(X, y, ann, 'neural_network', **kargs['neural_network'])
+
     run_each(X, y, boosting, 'boosting', **kargs['boosting'])
+
     run_each(X, y, decision_tree, 'decision_tree', **kargs['decision_tree'])
+
+    run_each(X, y, knn, 'knn', **kargs['knn']) # best k for kNN
+    # other values of k for your consideration
+    #run_each(X, y, knn, 'knn', **{ 'n_neighbors': 3 })
+    #run_each(X, y, knn, 'knn', **{ 'n_neighbors': 4 })
+    #run_each(X, y, knn, 'knn', **{ 'n_neighbors': 5 })
+    #run_each(X, y, knn, 'knn', **{ 'n_neighbors': 6 })
 
     # all svm kernels
     run_each(X, y, svm, 'support_vector_machine', **{**kargs['support_vector_machine'], 'kernel': 'linear'})
@@ -76,6 +96,7 @@ def run_all(data, **kargs):
     run_each(X, y, svm, 'support_vector_machine', **{**kargs['support_vector_machine'], 'kernel': 'sigmoid'})
 
 if __name__ == '__main__':
-    # setting max depth for this dataset does not improve predicition accuracy
+    print('~~~~~~~~~~~~~~~~~~ Restaurant Reviews ~~~~~~~~~~~~~~~~~~')
     run_all(hp, **hp_alg_arguments)
+    print('~~~~~~~~~~~~~~~~~~~ Cervical Cancer ~~~~~~~~~~~~~~~~~~~~')
     run_all(rp, **rp_alg_arguments)

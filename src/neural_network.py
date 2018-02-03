@@ -7,7 +7,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
 
-from helpers.scoring import accuracy
+from helpers.scoring import metrics
 
 def ann(X_train,
         X_test,
@@ -51,4 +51,4 @@ def ann(X_train,
     y_pred = classifier.predict(X_test)
     y_pred = (y_pred > 0.5)
 
-    return accuracy(y_test, y_pred, classifier)
+    return metrics(y_test, y_pred)

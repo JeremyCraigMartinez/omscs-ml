@@ -1,12 +1,13 @@
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import cross_val_score
 import numpy as np
 
-def accuracy(y_test, y_pred, classifier):
+def metrics(y_test, y_pred):
     # Making the Confusion Matrix
     cm = confusion_matrix(y_test, y_pred)
 
     tn, fp, fn, tp = cm.ravel()
-    scores = (tn + tp) / np.sum((tn, fp, fn, tp))
+    accuracy = (tn + tp) / np.sum((tn, fp, fn, tp))
+    precision = (tp) / np.sum((tp, fp))
+    recall = (tp) / np.sum((tp, fn))
 
-    return cm, scores
+    return cm, accuracy, precision, recall

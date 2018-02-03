@@ -11,7 +11,7 @@
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
-from helpers.scoring import accuracy
+from helpers.scoring import metrics
 
 def decision_tree(X_train,
                   X_test,
@@ -36,4 +36,4 @@ def decision_tree(X_train,
     # Predicting the Test set results
     y_pred = classifier.predict(X_test)
 
-    return accuracy(y_test, y_pred, classifier)
+    return metrics(y_test, y_pred)
