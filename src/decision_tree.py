@@ -36,4 +36,4 @@ def decision_tree(X_train,
     # Predicting the Test set results
     y_pred = classifier.predict(X_test)
 
-    accuracy(X_train, y_train, y_test, y_pred, classifier)
+    return accuracy(y_test, y_pred, classifier)
