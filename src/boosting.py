@@ -1,10 +1,13 @@
+# classifier did significantly worse when attempting to prune with
+# max_depth and tweak parameters like leaf weight and random state
+
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
 
 def boosting(X_train, X_test, y_train, y_test):
-    # Fitting XGBoost to the Training set
     classifier = AdaBoostClassifier()
+
     classifier.fit(X_train, y_train)
 
     # Predicting the Test set results
