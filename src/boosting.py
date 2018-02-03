@@ -2,8 +2,6 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
 
-from reviews_preprocessing import get_train_test_set
-
 def boosting(X_train, X_test, y_train, y_test):
     # Fitting XGBoost to the Training set
     classifier = AdaBoostClassifier()
@@ -21,8 +19,3 @@ def boosting(X_train, X_test, y_train, y_test):
     accuracies.std()
 
     return tmp_cm
-
-if __name__ == '__main__':
-    split_data_set = get_train_test_set()
-    cm = boosting(*split_data_set)
-    print(cm)

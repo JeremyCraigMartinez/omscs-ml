@@ -2,8 +2,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix
 
-from reviews_preprocessing import get_train_test_set
-
 def decision_tree(X_train, X_test, y_train, y_test):
     # Feature Scaling
     sc = StandardScaler()
@@ -19,8 +17,3 @@ def decision_tree(X_train, X_test, y_train, y_test):
 
     # Making the Confusion Matrix
     return confusion_matrix(y_test, y_pred)
-
-if __name__ == '__main__':
-    split_data_set = get_train_test_set()
-    cm = decision_tree(*split_data_set)
-    print(cm)

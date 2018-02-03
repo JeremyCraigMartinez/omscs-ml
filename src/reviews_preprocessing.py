@@ -5,7 +5,6 @@ import pandas as pd
 
 dir_path = dirname(realpath(__file__))
 
-# Cleaning the texts
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
@@ -45,3 +44,4 @@ def get_train_test_set():
 
 if __name__ == '__main__':
     X_train, X_test, y_train, y_test = get_train_test_set()
+    print(y_test.length)

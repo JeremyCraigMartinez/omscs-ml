@@ -1,38 +1,43 @@
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.layers import Dropout
+
 from sklearn.metrics import confusion_matrix
 
-from reviews_preprocessing import get_train_test_set
+def ann(X_train, X_test, y_train, y_test, input_dim=1500):
+    model = Sequential()
 
-def ann(X_train, X_test, y_train, y_test):
-    # Initialising the ANN
-    classifier = Sequential()
+    #Input layer
+    model.add(Dense(units=500,
+                    input_dim=input_dim,
+                    kernel_initializer='uniform',
+                    activation='relu'))
+    model.add(Dropout(0.5))
 
-    # Adding the input layer and the first hidden layer
-    classifier.add(Dense(output_dim=6, init='uniform', activation='relu', input_dim=1500))
+    #Hidden layer 1
+    model.add(Dense(units=200,
+                    kernel_initializer='uniform',
+                    activation='relu'))
+    model.add(Dropout(0.5))
 
-    # Adding the second hidden layer
-    classifier.add(Dense(output_dim=6, init='uniform', activation='relu'))
+    #Output layer
+    model.add(Dense(units=1,
+                    kernel_initializer='uniform',
+                    activation='sigmoid'))
 
-    # Adding the output layer
-    classifier.add(Dense(output_dim=1, init='uniform', activation='sigmoid'))
+    print(model.summary()) #for showing the structure and parameters
 
-    # Compiling the ANN
-    classifier.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    # Defining how to measure performance
+    model.compile(loss='binary_crossentropy',
+                  optimizer='adam', metrics=['accuracy'])
 
-    # Fitting the ANN to the Training set
-    classifier.fit(X_train, y_train, batch_size=10, nb_epoch=100)
-
-    # Part 3 - Making the predictions and evaluating the model
+    model.fit(x=X_train, y=y_train,
+              validation_split=0.2, epochs=20,
+              batch_size=200, verbose=2)
 
     # Predicting the Test set results
-    y_pred = classifier.predict(X_test)
+    y_pred = model.predict(X_test)
     y_pred = (y_pred > 0.5)
 
     # Making the Confusion Matrix
     return confusion_matrix(y_test, y_pred)
-
-if __name__ == '__main__':
-    split_data_set = get_train_test_set()
-    cm = ann(*split_data_set)
-    print(cm)

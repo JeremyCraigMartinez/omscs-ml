@@ -52,6 +52,7 @@ def fill_missing_data(data, columns, func):
 
 def clean(dataset):
     data = dataset.replace('?', np.nan)
+
     data = data.convert_objects(convert_numeric=True)
 
     # fill missing data
@@ -76,25 +77,41 @@ def clean(dataset):
 
     return data
 
+from sklearn import preprocessing
+def feature_scale(data):
+    minmax_scale = preprocessing.MinMaxScaler(feature_range=(0, 1))
+    scaled_data = minmax_scale.fit_transform(data)
+    return scaled_data
+
 def get_X_Y(dataset):
     X_cols = list(dataset.columns.values)
     y_cols = [X_cols.pop(X_cols.index('Biopsy'))]
 
     np.random.seed(42)
-    dataset_shuffle = dataset.iloc[np.random.permutation(len(dataset))]
+    data_shuffle = dataset.iloc[np.random.permutation(len(dataset))]
 
-    X = dataset_shuffle[X_cols]
-    y = np.array(dataset_shuffle[y_cols])
+    # split data into features and labels
+    y = data_shuffle[y_cols]
+    X = data_shuffle[X_cols]
 
-    return X, y
+    # split training and test data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+    # scale features so no one features are weighed unevenly
+    X_train = feature_scale(X_train)
+    X_test = feature_scale(X_test)
+
+    y_train = np.array(y_train)
+    y_test = np.array(y_test)
+
+    return X_train, X_test, y_train, y_test
 
 from sklearn.cross_validation import train_test_split
 def get_train_test_set():
     dataset = pd.read_csv(dir_path + '/../data/kag_risk_factors_cervical_cancer.csv')
     cleaned_data = clean(dataset)
 
-    X, y = get_X_Y(cleaned_data)
-    return train_test_split(X, y, test_size=0.20, random_state=0)
+    return get_X_Y(cleaned_data)
 
 if __name__ == '__main__':
-    X_train, X_test, y_train, y_test = get_train_test_set()
+    x_y = get_train_test_set()
