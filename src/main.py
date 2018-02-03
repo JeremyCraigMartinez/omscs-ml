@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+import warnings
+
 from reviews_preprocessing import get_train_test_set as rp
 from health_data_preprocessing import get_train_test_set as hp
 
@@ -6,6 +10,8 @@ from k_nearest_neighbor import knn
 from decision_tree import decision_tree
 from neural_network import ann
 from support_vector_machine import svm
+
+warnings.filterwarnings('ignore')
 
 def run_all(data, **kargs):
     split_data_set = data()

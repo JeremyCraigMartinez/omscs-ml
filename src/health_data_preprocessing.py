@@ -87,8 +87,8 @@ def get_X_Y(dataset):
     X_cols = list(dataset.columns.values)
     y_cols = [X_cols.pop(X_cols.index('Biopsy'))]
 
-    np.random.seed(42)
-    data_shuffle = dataset.iloc[np.random.permutation(len(dataset))]
+    np.random.seed(42) #pylint: disable=no-member
+    data_shuffle = dataset.iloc[np.random.permutation(len(dataset))] #pylint: disable=no-member
 
     # split data into features and labels
     y = data_shuffle[y_cols]
