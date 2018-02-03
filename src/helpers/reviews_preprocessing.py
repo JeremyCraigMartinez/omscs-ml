@@ -31,7 +31,6 @@ def get_X_Y(corpus, dataset):
     return X, y
 
 # Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
 def get_train_test_set():
     # Importing the dataset
     dataset = pd.read_csv(dir_path + '/../../data/Restaurant_Reviews.tsv', delimiter='\t', quoting=3)
@@ -40,8 +39,4 @@ def get_train_test_set():
     X, y = get_X_Y(corpus, dataset)
 
     # X_train, X_test, y_train, y_test
-    return train_test_split(X, y, test_size=0.20, random_state=0)
-
-if __name__ == '__main__':
-    X_train, X_test, y_train, y_test = get_train_test_set()
-    print(y_test.length)
+    return X, y

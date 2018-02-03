@@ -8,7 +8,5 @@ def accuracy(X_train, y_train, y_test, y_pred, classifier):
     # Applying k-Fold Cross Validation
     accuracies = cross_val_score(estimator=classifier, X=X_train, y=y_train, cv=10)
     mean = accuracies.mean()
-    std = accuracies.std()
 
-    print('Accuracy of {} with a standard deviation of {}'.format(mean, std))
-    print(cm)
+    return cm, mean

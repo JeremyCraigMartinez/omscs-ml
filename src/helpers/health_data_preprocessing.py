@@ -94,24 +94,15 @@ def get_X_Y(dataset):
     y = data_shuffle[y_cols]
     X = data_shuffle[X_cols]
 
-    # split training and test data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-
     # scale features so no one features are weighed unevenly
-    X_train = feature_scale(X_train)
-    X_test = feature_scale(X_test)
+    X = feature_scale(X)
 
-    y_train = np.array(y_train)
-    y_test = np.array(y_test)
+    y = np.array(y)
 
-    return X_train, X_test, y_train, y_test
+    return X, y
 
-from sklearn.cross_validation import train_test_split
 def get_train_test_set():
     dataset = pd.read_csv(dir_path + '/../../data/kag_risk_factors_cervical_cancer.csv')
     cleaned_data = clean(dataset)
 
     return get_X_Y(cleaned_data)
-
-if __name__ == '__main__':
-    x_y = get_train_test_set()

@@ -6,8 +6,7 @@
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
-
-from helpers.scoring import accuracy
+from sklearn.metrics import confusion_matrix
 
 def ann(X_train,
         X_test,
@@ -35,8 +34,6 @@ def ann(X_train,
                          kernel_initializer='uniform',
                          activation='sigmoid'))
 
-    print(classifier.summary()) #for showing the structure and parameters
-
     # Defining how to measure performance
     classifier.compile(loss='binary_crossentropy',
                        optimizer='adam',
@@ -47,10 +44,14 @@ def ann(X_train,
                    validation_split=0.2,
                    epochs=20,
                    batch_size=200,
-                   verbose=2)
+                   verbose=0)
 
     # Predicting the Test set results
     y_pred = classifier.predict(X_test)
     y_pred = (y_pred > 0.5)
 
-    accuracy(X_train, y_train, y_test, y_pred, classifier)
+    cm = confusion_matrix(y_test, y_pred)
+    scores = classifier.evaluate(X_test, y_test, verbose=0)
+
+    # don't use scoring.accuracy here because it doesn't work well with cross_val_score
+    return cm, scores[1]
