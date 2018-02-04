@@ -51,4 +51,4 @@ def ann(X_train,
     y_pred = classifier.predict(X_test)
     y_pred = (y_pred > 0.5)
 
-    return metrics(y_test, y_pred)
+    return (classifier, *metrics(y_test, y_pred))

@@ -13,4 +13,4 @@ def boosting(X_train, X_test, y_train, y_test):
     # Predicting the Test set results
     y_pred = classifier.predict(X_test)
 
-    return metrics(y_test, y_pred)
+    return (classifier, *metrics(y_test, y_pred))
