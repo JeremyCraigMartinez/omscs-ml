@@ -50,7 +50,7 @@ hp_alg_arguments = {
 }
 
 def run_each(X, y, algorithm, alg_name, **kargs):
-    print('Confusion matrix for {}'.format(alg_name))
+    print('\x1b[6;30;42m' + 'Confusion matrix for {}'.format(alg_name) + '\x1b[0m')
 
     kfold = StratifiedKFold(n_splits=7, shuffle=True)
     accuracy = []
@@ -96,7 +96,7 @@ def run_all(data, **kargs):
     run_each(X, y, svm, 'support_vector_machine', **{**kargs['support_vector_machine'], 'kernel': 'sigmoid'})
 
 if __name__ == '__main__':
-    print('~~~~~~~~~~~~~~~~~~ Restaurant Reviews ~~~~~~~~~~~~~~~~~~')
+    print('\x1b[3;33;44m' + '~~~~~~~~~~~~~~~~~~~ Cervical Cancer ~~~~~~~~~~~~~~~~~~~~' + '\x1b[0m')
     run_all(hp, **hp_alg_arguments)
-    print('~~~~~~~~~~~~~~~~~~~ Cervical Cancer ~~~~~~~~~~~~~~~~~~~~')
+    print('\x1b[3;33;44m' + '~~~~~~~~~~~~~~~~~~ Restaurant Reviews ~~~~~~~~~~~~~~~~~~' + '\x1b[0m')
     run_all(rp, **rp_alg_arguments)

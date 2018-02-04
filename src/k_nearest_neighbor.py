@@ -10,7 +10,7 @@ def knn(X_train, X_test, y_train, y_test, n_neighbors=3):
     X_test = sc.transform(X_test)
 
     # Fitting K-NN to the Training set
-    classifier = KNeighborsClassifier(n_neighbors=n_neighbors, metric='euclidean')
+    classifier = KNeighborsClassifier(n_neighbors=n_neighbors, metric='euclidean', weights='distance')
     classifier.fit(X_train, y_train)
 
     # Predicting the Test set results
