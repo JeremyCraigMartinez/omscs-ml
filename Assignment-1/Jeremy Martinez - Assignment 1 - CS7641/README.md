@@ -15,5 +15,6 @@ Ensure you have [python 3.6](https://www.python.org/downloads/release/python-360
 
 Then run
 
+    # using python 3.6
     pip install --no-cache-dir -r ./requirements.txt
-    python3.6
+    python src/main.py
