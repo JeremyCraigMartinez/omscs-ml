@@ -3,11 +3,12 @@ import re
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
 
 dir_path = dirname(realpath(__file__))
 
-import nltk
 # uncomment if you do not have stopwords downloaded
+#import nltk
 #nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -24,7 +25,6 @@ def get_corpus(dataset):
     return corpus
 
 # Creating the Bag of Words model
-from sklearn.feature_extraction.text import CountVectorizer
 def get_X_Y(corpus, dataset):
     cv = CountVectorizer(max_features=1500)
     X = cv.fit_transform(corpus).toarray()
