@@ -1,0 +1,4 @@
+[submodule "ABAGAIL"]
+    path = Assignment-2/ABAGAIL
+    url = git://github.com:JeremyCraigMartinez/ABAGAIL.git
+    ignore = dirty
