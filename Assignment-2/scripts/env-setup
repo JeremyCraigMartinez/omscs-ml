@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo "setting up virtual environment for jython (python 2.7)"
+virtualenv -p jython $DIR/../.jenv
+
+echo "setting up virtual environment for python 3.6"
+python3.6 -m venv $DIR/../.venv
+source $DIR/../.venv/bin/activate
+pip install -r $DIR/../requirements-3.6.txt

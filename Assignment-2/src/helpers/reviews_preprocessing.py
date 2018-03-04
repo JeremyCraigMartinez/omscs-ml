@@ -1,3 +1,5 @@
+#!/user/bin/env python
+
 from os.path import dirname, realpath
 import re
 
@@ -42,3 +44,11 @@ def get_train_test_set():
 
     # X_train, X_test, y_train, y_test
     return train_test_split(X, y, test_size=0.2)
+
+if __name__ == "__main__":
+    X_train, X_test, y_train, y_test = get_train_test_set()
+
+    pd.DataFrame(X_train).to_csv('csv/X_train.csv', index=False)
+    pd.DataFrame(X_test).to_csv('csv/X_test.csv', index=False)
+    pd.DataFrame(y_train).to_csv('csv/y_train.csv', index=False)
+    pd.DataFrame(y_test).to_csv('csv/y_test.csv', index=False)

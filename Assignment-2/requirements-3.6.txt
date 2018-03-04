@@ -1,6 +1,6 @@
-scipy
 pandas
 sklearn
-matplotlib
 nltk
+scipy
+matplotlib
 pylint
