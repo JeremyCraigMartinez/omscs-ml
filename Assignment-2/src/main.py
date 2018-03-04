@@ -1,42 +1,40 @@
-#!/usr/bin/env python
-
-import sys
 import os
+import sys
+from functools import partial
+from threading import Thread
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(CWD)
 sys.path.append('{}/../ABAGAIL/bin'.format(CWD))
 
-from func.nn.backprop import BackPropagationNetworkFactory
-from shared import SumOfSquaresError, DataSet, Instance
-from opt.example import NeuralNetworkOptimizationProblem
-from func.nn.backprop import RPROPUpdateRule, BatchBackPropagationTrainer
 import opt.RandomizedHillClimbing as RandomizedHillClimbing
 import opt.SimulatedAnnealing as SimulatedAnnealing
 import opt.ga.StandardGeneticAlgorithm as StandardGeneticAlgorithm
-from func.nn.activation import RELU
 
-class RandomSearch(object):
-    """docstring for RandomSearch"""
-    def __init__(self, **kargs):
-        super(RandomSearch, self).__init__()
-        self.outfile = kargs['outfile']
-        self.search_alg = kargs['search_alg'] if 'search_alg' in kargs else None
-
-    def __str__(self):
-        return self.outfile
-
-    def read_data(self):
-        X_train, X_test, y_train, y_test = lambda x: 'shit'
-        self.X_train = X_train
-        self.X_test = X_test
-        self.y_train = y_train
-        self.y_test = y_test
-
-    def get_error(self, data):
-        return 'error'
+from RandomSearch import RandomSearch
 
 if __name__ == '__main__':
-    rhc = RandomSearch(**{'outfile': 'RHC'})
-    print rhc
-    print os.path.dirname(os.path.realpath(__file__))
+    '''
+    check cli arg for parallelized script, if not there, run all synchronously
+    '''
+
+    if sys.argv[1] == '0' or sys.argv[1] is None:
+        # Back Propogation
+        bp = RandomSearch(**{'outfile': 'BP'})
+        bp.run()
+
+    if sys.argv[1] == '1' or sys.argv[1] is None:
+        # Genetic Algorithm
+        alg = partial(StandardGeneticAlgorithm, 50, 20, 20)
+        ga = RandomSearch(**{'outfile': 'GA', 'search_alg': alg})
+        ga.run()
+
+    if sys.argv[1] == '2' or sys.argv[1] is None:
+        # Randomized Hill Climbing
+        rhc = RandomSearch(**{'outfile': 'RHC', 'search_alg': RandomizedHillClimbing})
+        rhc.run()
+
+    if sys.argv[1] == '3' or sys.argv[1] is None:
+        alg = partial(SimulatedAnnealing, 1E10, 0.15)
+        sa = RandomSearch(**{'outfile': 'SA', 'search_alg': alg})
+        sa.run()
