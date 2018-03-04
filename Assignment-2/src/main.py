@@ -1,7 +1,9 @@
+#!/usr/bin/env python
+# python-2.7
+
 import os
 import sys
 from functools import partial
-from threading import Thread
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(CWD)

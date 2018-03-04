@@ -1,20 +1,20 @@
 #!/usr/bin/env python
+# python-2.7
 
 import sys
 import os
 import csv
-import pdb
+import pdb # pylint: disable=W0611
 import time
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(CWD)
 sys.path.append('{}/../ABAGAIL/bin'.format(CWD))
 
-from func.nn.backprop import BackPropagationNetworkFactory
+from func.nn.backprop import BackPropagationNetworkFactory, RPROPUpdateRule, BatchBackPropagationTrainer
+from func.nn.activation import RELU
 from shared import SumOfSquaresError, DataSet, Instance
 from opt.example import NeuralNetworkOptimizationProblem
-from func.nn.backprop import RPROPUpdateRule, BatchBackPropagationTrainer
-from func.nn.activation import RELU
 
 INPUT_LAYER = 400
 HIDDEN_LAYER_1 = 200
@@ -28,6 +28,8 @@ class RandomSearch(object):
         self.outfile = '{}/../csv/{}'.format(CWD, kargs['outfile'])
         self.search_alg = kargs['search_alg'] if 'search_alg' in kargs else None
         self.squared_error = SumOfSquaresError()
+        self.network = None
+        self.train_ds = []
 
     def __str__(self):
         return self.outfile
@@ -69,7 +71,7 @@ class RandomSearch(object):
 
     def write_header(self):
         with open(self.outfile, 'w') as f:
-            f.write('{}\t{}\t{}\t{}\t{}\t{}\n'.format('iteration','error_train','error_test','accuracy_train','accuracy_test','elapsed'))
+            f.write('{}\t{}\t{}\t{}\t{}\t{}\n'.format('iteration', 'error_train', 'error_test', 'accuracy_train', 'accuracy_test', 'elapsed'))
 
     def write_row(self, row):
         with open(self.outfile, 'a+') as f:
@@ -87,7 +89,7 @@ class RandomSearch(object):
             if iteration % 10 == 0:
                 error_train, acc_train = self.error('train_ds')
                 error_test, acc_test = self.error('test_ds')
-                row = '{}\t{}\t{}\t{}\t{}\t{}\n'.format(iteration,error_train,error_test,acc_train,acc_test,elapsed)
+                row = '{}\t{}\t{}\t{}\t{}\t{}\n'.format(iteration, error_train, error_test, acc_train, acc_test, elapsed)
                 self.write_row(row)
 
     def run(self):

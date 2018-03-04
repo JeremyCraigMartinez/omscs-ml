@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+set -e
+
+# lint python 3.6 code
+grep -r "python-3.6" Assignment-2/src -l | xargs /Library/Frameworks/Python.framework/Versions/3.6/bin/pylint --rcfile .pylintrc
+
+# lint python 2.7 code (jython)
+grep -r "python-2.7" Assignment-2/src -l | xargs /usr/local/bin/pylint --rcfile=.pylintrc
