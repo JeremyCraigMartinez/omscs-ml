@@ -4,6 +4,7 @@ from os.path import dirname, realpath
 import re
 
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -48,7 +49,12 @@ def get_train_test_set():
 if __name__ == "__main__":
     X_train, X_test, y_train, y_test = get_train_test_set()
 
-    pd.DataFrame(X_train).to_csv('csv/X_train.csv', index=False)
-    pd.DataFrame(X_test).to_csv('csv/X_test.csv', index=False)
-    pd.DataFrame(y_train).to_csv('csv/y_train.csv', index=False)
-    pd.DataFrame(y_test).to_csv('csv/y_test.csv', index=False)
+    pd.DataFrame(X_train).to_csv('csv/X_train.csv', index=False, header=False)
+    pd.DataFrame(X_test).to_csv('csv/X_test.csv', index=False, header=False)
+    pd.DataFrame(y_train).to_csv('csv/y_train.csv', index=False, header=False)
+    pd.DataFrame(y_test).to_csv('csv/y_test.csv', index=False, header=False)
+
+    train = np.column_stack((X_train, y_train))
+    test = np.column_stack((X_test, y_test))
+    pd.DataFrame(train).to_csv('csv/train.csv', index=False, header=False)
+    pd.DataFrame(test).to_csv('csv/test.csv', index=False, header=False)
