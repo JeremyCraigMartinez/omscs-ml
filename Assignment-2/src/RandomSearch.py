@@ -79,7 +79,6 @@ class RandomSearch(object):
             print self.outfile, row
 
     def train(self):
-        '''train'''
         self.write_header()
         print "\nError results for %s\n---------------------------" % (self.outfile,)
         for iteration in xrange(TRAINING_ITERATIONS):
@@ -93,7 +92,6 @@ class RandomSearch(object):
                 self.write_row(row)
 
     def run(self):
-        '''run'''
         self.read_data('train_ds', '{}/../csv/train.csv'.format(CWD))
         self.read_data('test_ds', '{}/../csv/test.csv'.format(CWD))
         getattr(self, 'train_ds')
