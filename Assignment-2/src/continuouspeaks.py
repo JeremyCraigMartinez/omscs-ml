@@ -37,14 +37,8 @@ outfile_dir = '{}/../csv/PEAKS'.format(CWD)
 
 ef = ContinuousPeaksEvaluationFunction(T)
 odd = DiscreteUniformDistribution(ranges)
-nf = DiscreteChangeOneNeighbor(ranges)
-
-mf = DiscreteChangeOneMutation(ranges)
-cf = SingleCrossOver()
-gap = GenericGeneticAlgorithmProblem(ef, odd, mf, cf)
 
 def mimic():
-    #MIMIC
     for t in range(numTrials):
         for samples, keep, m in product([100], [50], [0.1, 0.3, 0.5, 0.7, 0.9]):
             fname = '{}/MIMIC-{}-{}-{}-{}.tsv'.format(outfile_dir, samples, keep, m, t + 1)
@@ -55,7 +49,9 @@ def mimic():
             fit(trainer, ef, _mimic, fname)
 
 def ga():
-    #GA
+    mf = DiscreteChangeOneMutation(ranges)
+    cf = SingleCrossOver()
+    gap = GenericGeneticAlgorithmProblem(ef, odd, mf, cf)
     for t in range(numTrials):
         for pop, mate, mutate in product([100], [50, 30, 10], [50, 30, 10]):
             fname = '{}/GA-{}-{}-{}.tsv'.format(outfile_dir, pop, mate, mutate, t + 1)
@@ -63,10 +59,10 @@ def ga():
             trainer = FixedIterationTrainer(_ga, 10)
             fit(trainer, ef, _ga, fname)
 
+nf = DiscreteChangeOneNeighbor(ranges)
 hcp = GenericHillClimbingProblem(ef, odd, nf)
 
 def rhc():
-    # RHC
     for t in range(numTrials):
         fname = '{}/RHC-{}.tsv'.format(outfile_dir, t + 1)
         _rhc = RandomizedHillClimbing(hcp)
@@ -74,7 +70,6 @@ def rhc():
         fit(trainer, ef, _rhc, fname)
 
 def sa():
-    # SA
     for t in range(numTrials):
         for CE in [0.15, 0.35, 0.55, 0.75, 0.95]:
             fname = '{}/SA-{}-{}.tsv'.format(outfile_dir, CE, t + 1)

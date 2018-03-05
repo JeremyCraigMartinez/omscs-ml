@@ -1,49 +1,41 @@
 #!/usr/bin/env python
 # python-2.7
 
-import sys
 import os
-from itertools import product
+import sys
 from array import array
+from itertools import product
 from threading import Thread
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(CWD)
 sys.path.append('{}/../ABAGAIL/bin'.format(CWD))
 
-import java.util.Random as Random
-
 import dist.DiscreteDependencyTree as DiscreteDependencyTree
 import dist.DiscreteUniformDistribution as DiscreteUniformDistribution
+import opt.DiscreteChangeOneNeighbor as DiscreteChangeOneNeighbor
 import opt.GenericHillClimbingProblem as GenericHillClimbingProblem
 import opt.RandomizedHillClimbing as RandomizedHillClimbing
 import opt.SimulatedAnnealing as SimulatedAnnealing
+import opt.ga.SingleCrossOver as SingleCrossOver
+import opt.ga.DiscreteChangeOneMutation as DiscreteChangeOneMutation
 import opt.ga.GenericGeneticAlgorithmProblem as GenericGeneticAlgorithmProblem
 import opt.ga.StandardGeneticAlgorithm as StandardGeneticAlgorithm
 import opt.prob.GenericProbabilisticOptimizationProblem as GenericProbabilisticOptimizationProblem
 import opt.prob.MIMIC as MIMIC
-import opt.example.TravelingSalesmanRouteEvaluationFunction as TravelingSalesmanRouteEvaluationFunction
-import opt.SwapNeighbor as SwapNeighbor
-import opt.ga.SwapMutation as SwapMutation
-import opt.example.TravelingSalesmanCrossOver as TravelingSalesmanCrossOver
+import opt.example.FlipFlopEvaluationFunction as FlipFlopEvaluationFunction
 import shared.FixedIterationTrainer as FixedIterationTrainer
 
 from helpers.fit import fit
 
-# set N value.  This is the number of points
-N = 100
-random = Random()
+outfile_dir = '{}/../csv/FLIPFLOP'.format(CWD)
+
+N = 1000
 numTrials = 5
-fill = [N] * N
+fill = [2] * N
 ranges = array('i', fill)
 
-points = [[0 for x in xrange(2)] for x in xrange(N)]
-for i, _ in enumerate(points):
-    points[i][0] = random.nextDouble()
-    points[i][1] = random.nextDouble()
-outfile_dir = '{}/../csv/TSP'.format(CWD)
-
-ef = TravelingSalesmanRouteEvaluationFunction(points)
+ef = FlipFlopEvaluationFunction()
 odd = DiscreteUniformDistribution(ranges)
 
 def mimic():
@@ -57,8 +49,8 @@ def mimic():
             fit(trainer, ef, _mimic, fname)
 
 def ga():
-    cf = TravelingSalesmanCrossOver(ef)
-    mf = SwapMutation()
+    mf = DiscreteChangeOneMutation(ranges)
+    cf = SingleCrossOver()
     gap = GenericGeneticAlgorithmProblem(ef, odd, mf, cf)
     for t in range(numTrials):
         for pop, mate, mutate in product([100], [50, 30, 10], [50, 30, 10]):
@@ -67,7 +59,7 @@ def ga():
             trainer = FixedIterationTrainer(_ga, 10)
             fit(trainer, ef, _ga, fname)
 
-nf = SwapNeighbor()
+nf = DiscreteChangeOneNeighbor(ranges)
 hcp = GenericHillClimbingProblem(ef, odd, nf)
 
 def rhc():
