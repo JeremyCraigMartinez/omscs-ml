@@ -67,7 +67,7 @@ for t in range(numTrials):
         cf = SingleCrossOver()
         gap = GenericGeneticAlgorithmProblem(ef, odd, mf, cf)
         ga = StandardGeneticAlgorithm(pop, mate, mutate, gap)
-        fit = FixedIterationTrainer(ga, 10)
+        trainer = FixedIterationTrainer(ga, 10)
         fit(trainer, ef, ga, fname)
 
 #MIMIC
@@ -83,5 +83,5 @@ for t in range(numTrials):
         df = DiscreteDependencyTree(m, ranges)
         pop = GenericProbabilisticOptimizationProblem(ef, odd, df)
         mimic = MIMIC(samples, keep, pop)
-        fit = FixedIterationTrainer(mimic, 10)
+        trainer = FixedIterationTrainer(mimic, 10)
         fit(trainer, ef, mimic, fname)
