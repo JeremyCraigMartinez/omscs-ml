@@ -25,6 +25,10 @@ from helpers.fit import fit
 
 numTrials = 5
 
+# WARNING:
+# This script will bog down a lot of CPU power
+# remember - with great CPU numbers, comes great responsibility
+
 def mimic(ef, odd, outfile_dir, ranges):
     for t in range(numTrials):
         # population of 55 did better so we'll only run that one here
@@ -55,8 +59,7 @@ def rhc(ef, odd, outfile_dir, nf):
         _rhc = RandomizedHillClimbing(hcp)
         trainer = FixedIterationTrainer(_rhc, 10)
         partialfit = partial(fit, trainer, ef, _rhc, fname)
-        #Thread(target=partialfit).start()
-        partialfit()
+        Thread(target=partialfit).start()
 
 def sa(ef, odd, outfile_dir, nf):
     hcp = GenericHillClimbingProblem(ef, odd, nf)

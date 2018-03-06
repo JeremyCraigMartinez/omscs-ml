@@ -7,12 +7,20 @@ source .venv/bin/activate
 # install dependencies
 pip install -r requirements.txt
 python src/helpers/reviews_preprocessing.py
+# files are in directory csv/
 ```
 
 run all RandomSearch
 
 ```bash
-
+# first install jython
+# create jython environment
+virtualenv -p jython .jenv
+# activate python virtual environment
+source .jenv/bin/activate
+# run function optimizations
+# modify number after j to how many cores you want to run in parallel
+# THIS WILL HAVE A SIGNIFICANT IMPACT ON YOUR CPUs!!!
 parallel \
   -j 4 \
   jython src/main.py ::: \
@@ -31,4 +39,9 @@ parallel \
   3,0.7 \
   3,0.8 \
   3,0.9
+
+# run fitness function optimizations
+jython src/tsp.py
+jython src/flipflop.py
+jython src/continuouspeaks.py
 ```
