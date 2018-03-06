@@ -32,7 +32,7 @@ numTrials = 5
 def mimic(ef, odd, outfile_dir, ranges):
     for t in range(numTrials):
         # population of 55 did better so we'll only run that one here
-        for samples, keep, m in product([55], [20], [0.5, 0.6, 0.7, 0.8, 0.9]):
+        for samples, keep, m in product([55], [20], [0.1, 0.3, 0.5, 0.7, 0.9]):
             fname = '{}/MIMIC-{}-{}-{}-{}'.format(outfile_dir, samples, keep, m, t + 1)
             df = DiscreteDependencyTree(m, ranges)
             pop = GenericProbabilisticOptimizationProblem(ef, odd, df)
@@ -64,7 +64,7 @@ def rhc(ef, odd, outfile_dir, nf):
 def sa(ef, odd, outfile_dir, nf):
     hcp = GenericHillClimbingProblem(ef, odd, nf)
     for t in range(numTrials):
-        for CE in [0.5, 0.6, 0.7, 0.8, 0.9]:
+        for CE in [0.1, 0.3, 0.5, 0.7, 0.9]:
             fname = '{}/SA-{}-{}'.format(outfile_dir, CE, t + 1)
             _sa = SimulatedAnnealing(1E10, CE, hcp)
             trainer = FixedIterationTrainer(_sa, 10)
