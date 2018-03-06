@@ -25,7 +25,7 @@ class RandomSearch(object):
     """docstring for RandomSearch"""
     def __init__(self, **kargs):
         super(RandomSearch, self).__init__()
-        self.outfile = '{}/../csv/{}.tsv'.format(CWD, kargs['outfile'])
+        self.outfile = '{}/../csv/OPTIMIZATION_FUNCTIONS/{}.tsv'.format(CWD, kargs['outfile'])
         self.search_alg = kargs['search_alg'] if 'search_alg' in kargs else None
         self.squared_error = SumOfSquaresError()
         self.network = None

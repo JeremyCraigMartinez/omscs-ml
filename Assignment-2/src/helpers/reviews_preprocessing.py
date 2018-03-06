@@ -1,4 +1,4 @@
-#!/user/bin/env python
+#!/usr/bin/env python
 # python-3.6
 
 from os.path import dirname, realpath
