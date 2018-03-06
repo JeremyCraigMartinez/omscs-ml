@@ -34,10 +34,10 @@ parallel \
   1,55,10,20 \
   1,55,10,10 \
   2 \
+  3,0.1 \
+  3,0.3 \
   3,0.5 \
-  3,0.6 \
   3,0.7 \
-  3,0.8 \
   3,0.9
 
 # run fitness function optimizations

@@ -41,7 +41,7 @@ if __name__ == '__main__':
         rhc.run()
 
     if argv[0] == '3' or argv is None:
-        T = float(argv[1]) # [0.5,0.6,0.7,0.8,0.9]
+        T = float(argv[1]) # [0.1,0.3,0.5,0.7,0.9]
         alg = partial(SimulatedAnnealing, 1E10, T)
         sa = RandomSearch(**{'outfile': 'SA/SA-{}'.format(T), 'search_alg': alg})
         sa.run()
