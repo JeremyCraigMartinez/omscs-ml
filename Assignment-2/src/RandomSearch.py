@@ -16,8 +16,8 @@ from func.nn.activation import RELU
 from shared import SumOfSquaresError, DataSet, Instance
 from opt.example import NeuralNetworkOptimizationProblem
 
-INPUT_LAYER = 400
-HIDDEN_LAYER_1 = 200
+INPUT_LAYER = 100
+HIDDEN_LAYER_1 = 40
 OUTPUT_LAYER = 1
 TRAINING_ITERATIONS = 4001
 

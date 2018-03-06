@@ -30,7 +30,7 @@ def get_corpus(dataset):
 
 # Creating the Bag of Words model
 def get_X_Y(corpus, dataset):
-    cv = CountVectorizer(max_features=400)
+    cv = CountVectorizer(max_features=100)
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, 1].values
 

@@ -19,24 +19,29 @@ if __name__ == '__main__':
     '''
     check cli arg for parallelized script, if not there, run all synchronously
     '''
+    argv = sys.argv[1].split(',')
 
-    if sys.argv[1] == '0' or sys.argv[1] is None:
+    if argv[0] == '0' or argv is None:
         # Back Propogation
         bp = RandomSearch(**{'outfile': 'BP'})
         bp.run()
 
-    if sys.argv[1] == '1' or sys.argv[1] is None:
+    if argv[0] == '1' or argv is None:
         # Genetic Algorithm
-        alg = partial(StandardGeneticAlgorithm, 50, 20, 20)
-        ga = RandomSearch(**{'outfile': 'GA', 'search_alg': alg})
+        pop = int(argv[1]) # [40, 50]
+        mate = int(argv[2]) # [20, 10]
+        mutate = int(argv[3]) # [20, 10]
+        alg = partial(StandardGeneticAlgorithm, pop, mate, mutate)
+        ga = RandomSearch(**{'outfile': 'GA-{}-{}-{}'.format(pop, mate, mutate), 'search_alg': alg})
         ga.run()
 
-    if sys.argv[1] == '2' or sys.argv[1] is None:
+    if argv[0] == '2' or argv is None:
         # Randomized Hill Climbing
         rhc = RandomSearch(**{'outfile': 'RHC', 'search_alg': RandomizedHillClimbing})
         rhc.run()
 
-    if sys.argv[1] == '3' or sys.argv[1] is None:
-        alg = partial(SimulatedAnnealing, 1E10, 0.15)
-        sa = RandomSearch(**{'outfile': 'SA', 'search_alg': alg})
+    if argv[0] == '3' or argv is None:
+        T = float(argv[1]) # [0.5,0.6,0.7,0.8,0.9]
+        alg = partial(SimulatedAnnealing, 1E10, T)
+        sa = RandomSearch(**{'outfile': 'SA-{}'.format(T), 'search_alg': alg})
         sa.run()
