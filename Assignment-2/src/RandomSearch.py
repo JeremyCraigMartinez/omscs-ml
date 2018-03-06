@@ -19,13 +19,13 @@ from opt.example import NeuralNetworkOptimizationProblem
 INPUT_LAYER = 400
 HIDDEN_LAYER_1 = 200
 OUTPUT_LAYER = 1
-TRAINING_ITERATIONS = 5001
+TRAINING_ITERATIONS = 4001
 
 class RandomSearch(object):
     """docstring for RandomSearch"""
     def __init__(self, **kargs):
         super(RandomSearch, self).__init__()
-        self.outfile = '{}/../csv/{}'.format(CWD, kargs['outfile'])
+        self.outfile = '{}/../csv/{}.tsv'.format(CWD, kargs['outfile'])
         self.search_alg = kargs['search_alg'] if 'search_alg' in kargs else None
         self.squared_error = SumOfSquaresError()
         self.network = None
@@ -81,8 +81,8 @@ class RandomSearch(object):
     def train(self):
         self.write_header()
         print "\nError results for %s\n---------------------------" % (self.outfile,)
+        start = time.clock()
         for iteration in xrange(TRAINING_ITERATIONS):
-            start = time.clock()
             self.search_alg.train()
             elapsed = time.clock()-start
             if iteration % 10 == 0:
