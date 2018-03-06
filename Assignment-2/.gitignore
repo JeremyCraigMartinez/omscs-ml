@@ -106,4 +106,10 @@ ENV/
 # Assignment specific
 ~*
 
-csv/*
+# these csv's are easy to reproduce, no need to version control
+csv/X_test.csv
+csv/X_train.csv
+csv/test.csv
+csv/train.csv
+csv/y_test.csv
+csv/y_train.csv
