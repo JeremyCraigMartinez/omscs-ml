@@ -3,8 +3,19 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from helpers.read_csvs import average, read_fitness_function_data
 
 plot_colors = ('r', 'g', 'b', 'c', 'darkorange', 'black')
+
+def construct_fitness(curves, title):
+    fig = Figures(title, "Iterations", "Evaluation Values")
+    fig.start()
+
+    for c in curves:
+        x, y, _ = average(read_fitness_function_data, c["curve_file"])
+        fig.plot_curve(c["curve_title"], x, y)
+
+    fig.finish()
 
 def get_compare_figure(title, label, accuracy, times):
 

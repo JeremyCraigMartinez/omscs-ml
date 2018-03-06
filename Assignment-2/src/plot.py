@@ -3,22 +3,153 @@
 
 import matplotlib.pyplot as plt
 
-from helpers.read_csvs import average, read_fitness_function_data
-from helpers.figures import Figures
+from helpers.figures import construct_fitness
 
 if __name__ == '__main__':
-    x1, y1, t1 = average(read_fitness_function_data, "csv/TSP/MIMIC-55-20-0.1-NNN")
-    x2, y2, t2 = average(read_fitness_function_data, "csv/TSP/MIMIC-55-20-0.3-NNN")
-    x3, y3, t3 = average(read_fitness_function_data, "csv/TSP/MIMIC-55-20-0.5-NNN")
-    x4, y4, t4 = average(read_fitness_function_data, "csv/TSP/MIMIC-55-20-0.7-NNN")
-    x5, y5, t5 = average(read_fitness_function_data, "csv/TSP/MIMIC-55-20-0.9-NNN")
+    # Randomized Search Optimizations
+    # Backpropagation (controlled variable for comparison)
+    ###############################################################################
+    '''x1, y1, t1 = average(read_fitness_function_data, "csv/OPTIMIZATION_FUNCTIONS/BP/BP.TSV")
 
-    f = Figures("TSP Evaluation Curves", "Iterations", "Evaluation Values")
+    f = Figures("TSP MIMIC Evaluation Curves", "Iterations", "Evaluation Values")
     f.start()
     f.plot_curve("MIMIC-0.1-AVG", x1, y1)
-    f.plot_curve("MIMIC-0.3-AVG", x2, y2)
-    f.plot_curve("MIMIC-0.5-AVG", x3, y3)
-    f.plot_curve("MIMIC-0.7-AVG", x4, y4)
-    f.plot_curve("MIMIC-0.9-AVG", x5, y5)
-    f.finish()
+    f.finish()'''
+
+    # Fitness Functions
+    # TSP
+    ###############################################################################
+    construct_fitness(
+        [
+            {"curve_file": "csv/TSP/MIMIC-55-20-0.1-NNN", "curve_title": "MIMIC-0.1-AVG"},
+            {"curve_file": "csv/TSP/MIMIC-55-20-0.3-NNN", "curve_title": "MIMIC-0.3-AVG"},
+            {"curve_file": "csv/TSP/MIMIC-55-20-0.5-NNN", "curve_title": "MIMIC-0.5-AVG"},
+            {"curve_file": "csv/TSP/MIMIC-55-20-0.7-NNN", "curve_title": "MIMIC-0.7-AVG"},
+            {"curve_file": "csv/TSP/MIMIC-55-20-0.9-NNN", "curve_title": "MIMIC-0.9-AVG"},
+        ],
+        "TSP MIMIC Evaluation Curves")
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/TSP/GA-55-10-10-NNN", "curve_title": "GA-55-10-10-AVG"},
+            {"curve_file": "csv/TSP/GA-55-10-20-NNN", "curve_title": "GA-55-10-20-AVG"},
+            {"curve_file": "csv/TSP/GA-55-20-10-NNN", "curve_title": "GA-55-20-10-AVG"},
+            {"curve_file": "csv/TSP/GA-55-20-20-NNN", "curve_title": "GA-55-20-20-AVG"},
+        ],
+        "TSP GA Evaluation Curves")
+
+    construct_fitness(
+        [{"curve_file": "csv/TSP/RHC-NNN", "curve_title": "RHC-AVG"}],
+        "TSP RHC Evaluation Curves")
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/TSP/SA-0.1-NNN", "curve_title": "SA-0.1-AVG"},
+            {"curve_file": "csv/TSP/SA-0.3-NNN", "curve_title": "SA-0.3-AVG"},
+            {"curve_file": "csv/TSP/SA-0.5-NNN", "curve_title": "SA-0.5-AVG"},
+            {"curve_file": "csv/TSP/SA-0.7-NNN", "curve_title": "SA-0.7-AVG"},
+            {"curve_file": "csv/TSP/SA-0.9-NNN", "curve_title": "SA-0.9-AVG"},
+        ],
+        "TSP SA Evaluation Curves")
+
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/TSP/RHC-NNN", "curve_title": "RHC-AVG"},
+            {"curve_file": "csv/TSP/GA-55-10-10-NNN", "curve_title": "GA-55-10-10-AVG"},
+            {"curve_file": "csv/TSP/MIMIC-55-20-0.5-NNN", "curve_title": "MIMIC-0.5-AVG"},
+            {"curve_file": "csv/TSP/SA-0.7-NNN", "curve_title": "SA-0.7-AVG"},
+        ],
+        "TSP (BEST) Evaluation Curves")
+
+    # FLIPFLOP
+    ###############################################################################
+    construct_fitness(
+        [
+            {"curve_file": "csv/FLIPFLOP/MIMIC-55-20-0.1-NNN", "curve_title": "MIMIC-0.1-AVG"},
+            {"curve_file": "csv/FLIPFLOP/MIMIC-55-20-0.3-NNN", "curve_title": "MIMIC-0.3-AVG"},
+            {"curve_file": "csv/FLIPFLOP/MIMIC-55-20-0.5-NNN", "curve_title": "MIMIC-0.5-AVG"},
+            {"curve_file": "csv/FLIPFLOP/MIMIC-55-20-0.7-NNN", "curve_title": "MIMIC-0.7-AVG"},
+            {"curve_file": "csv/FLIPFLOP/MIMIC-55-20-0.9-NNN", "curve_title": "MIMIC-0.9-AVG"},
+        ],
+        "FLIPFLOP MIMIC Evaluation Curves")
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/FLIPFLOP/GA-55-10-10-NNN", "curve_title": "GA-55-10-10-AVG"},
+            {"curve_file": "csv/FLIPFLOP/GA-55-10-20-NNN", "curve_title": "GA-55-10-20-AVG"},
+            {"curve_file": "csv/FLIPFLOP/GA-55-20-10-NNN", "curve_title": "GA-55-20-10-AVG"},
+            {"curve_file": "csv/FLIPFLOP/GA-55-20-20-NNN", "curve_title": "GA-55-20-20-AVG"},
+        ],
+        "FLIPFLOP GA Evaluation Curves")
+
+    construct_fitness(
+        [{"curve_file": "csv/FLIPFLOP/RHC-NNN", "curve_title": "RHC-AVG"}],
+        "FLIPFLOP RHC Evaluation Curves")
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/FLIPFLOP/SA-0.1-NNN", "curve_title": "SA-0.1-AVG"},
+            {"curve_file": "csv/FLIPFLOP/SA-0.3-NNN", "curve_title": "SA-0.3-AVG"},
+            {"curve_file": "csv/FLIPFLOP/SA-0.5-NNN", "curve_title": "SA-0.5-AVG"},
+            {"curve_file": "csv/FLIPFLOP/SA-0.7-NNN", "curve_title": "SA-0.7-AVG"},
+            {"curve_file": "csv/FLIPFLOP/SA-0.9-NNN", "curve_title": "SA-0.9-AVG"},
+        ],
+        "FLIPFLOP SA Evaluation Curves")
+
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/FLIPFLOP/RHC-NNN", "curve_title": "RHC-AVG"},
+            {"curve_file": "csv/FLIPFLOP/GA-55-20-10-NNN", "curve_title": "GA-55-20-10-AVG"},
+            {"curve_file": "csv/FLIPFLOP/MIMIC-55-20-0.3-NNN", "curve_title": "MIMIC-0.3-AVG"},
+            {"curve_file": "csv/FLIPFLOP/SA-0.7-NNN", "curve_title": "SA-0.7-AVG"},
+        ],
+        "FLIPFLOP (BEST) Evaluation Curves")
+
+    # PEAKS
+    ###############################################################################
+    construct_fitness(
+        [
+            {"curve_file": "csv/PEAKS/MIMIC-55-20-0.1-NNN", "curve_title": "MIMIC-0.1-AVG"},
+            {"curve_file": "csv/PEAKS/MIMIC-55-20-0.3-NNN", "curve_title": "MIMIC-0.3-AVG"},
+            {"curve_file": "csv/PEAKS/MIMIC-55-20-0.5-NNN", "curve_title": "MIMIC-0.5-AVG"},
+            {"curve_file": "csv/PEAKS/MIMIC-55-20-0.7-NNN", "curve_title": "MIMIC-0.7-AVG"},
+            {"curve_file": "csv/PEAKS/MIMIC-55-20-0.9-NNN", "curve_title": "MIMIC-0.9-AVG"},
+        ],
+        "PEAKS MIMIC Evaluation Curves")
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/PEAKS/GA-55-10-10-NNN", "curve_title": "GA-55-10-10-AVG"},
+            {"curve_file": "csv/PEAKS/GA-55-10-20-NNN", "curve_title": "GA-55-10-20-AVG"},
+            {"curve_file": "csv/PEAKS/GA-55-20-10-NNN", "curve_title": "GA-55-20-10-AVG"},
+            {"curve_file": "csv/PEAKS/GA-55-20-20-NNN", "curve_title": "GA-55-20-20-AVG"},
+        ],
+        "PEAKS GA Evaluation Curves")
+
+    construct_fitness(
+        [{"curve_file": "csv/PEAKS/RHC-NNN", "curve_title": "RHC-AVG"}],
+        "PEAKS RHC Evaluation Curves")
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/PEAKS/SA-0.1-NNN", "curve_title": "SA-0.1-AVG"},
+            {"curve_file": "csv/PEAKS/SA-0.3-NNN", "curve_title": "SA-0.3-AVG"},
+            {"curve_file": "csv/PEAKS/SA-0.5-NNN", "curve_title": "SA-0.5-AVG"},
+            {"curve_file": "csv/PEAKS/SA-0.7-NNN", "curve_title": "SA-0.7-AVG"},
+            {"curve_file": "csv/PEAKS/SA-0.9-NNN", "curve_title": "SA-0.9-AVG"},
+        ],
+        "PEAKS SA Evaluation Curves")
+
+
+    construct_fitness(
+        [
+            {"curve_file": "csv/PEAKS/RHC-NNN", "curve_title": "RHC-AVG"},
+            {"curve_file": "csv/PEAKS/GA-55-20-20-NNN", "curve_title": "GA-55-20-20-AVG"},
+            {"curve_file": "csv/PEAKS/MIMIC-55-20-0.1-NNN", "curve_title": "MIMIC-0.1-AVG"},
+            {"curve_file": "csv/PEAKS/SA-0.1-NNN", "curve_title": "SA-0.1-AVG"},
+        ],
+        "PEAKS (BEST) Evaluation Curves")
+
     plt.show()
