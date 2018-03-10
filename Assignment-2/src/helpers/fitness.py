@@ -66,7 +66,7 @@ def sa(ef, odd, outfile_dir, nf):
     for t in range(numTrials):
         for CE in [0.1, 0.3, 0.5, 0.7, 0.9]:
             fname = '{}/SA-{}-{}'.format(outfile_dir, CE, t + 1)
-            _sa = SimulatedAnnealing(1E10, CE, hcp)
+            _sa = SimulatedAnnealing(1E6, CE, hcp)
             trainer = FixedIterationTrainer(_sa, 10)
             partialfit = partial(fit, trainer, ef, _sa, fname)
             Thread(target=partialfit).start()
