@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     if argv[0] == '1' or argv is None:
         # Genetic Algorithm
-        pop = int(argv[1]) # [40, 50]
+        pop = int(argv[1]) # [45, 55]
         mate = int(argv[2]) # [20, 10]
         mutate = int(argv[3]) # [20, 10]
         alg = partial(StandardGeneticAlgorithm, pop, mate, mutate)
@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     if argv[0] == '3' or argv is None:
         T = float(argv[1]) # [0.1,0.3,0.5,0.7,0.9]
-        alg = partial(SimulatedAnnealing, 1E10, T)
+        alg = partial(SimulatedAnnealing, 1E6, T) # change to 1E10 for other starting temp
         sa = RandomSearch(**{'outfile': 'SA/SA-{}'.format(T), 'search_alg': alg})
         sa.run()
