@@ -106,3 +106,6 @@ ENV/
 
 # Assignment specific
 ~*
+
+*.zip
+turnin

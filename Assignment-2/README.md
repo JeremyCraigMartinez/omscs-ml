@@ -8,9 +8,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python src/helpers/reviews_preprocessing.py
 # files are in directory csv/
+mkdir csv
 ```
 
-run all RandomSearch
+running scripts
 
 ```bash
 # first install jython
